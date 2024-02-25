@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "260438397932",
+    "project_id": "farmsamarth-90730",
+    "storage_bucket": "farmsamarth-90730.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260438397932:android:c2833888e21dcce113e6c9",
+        "android_client_info": {
+          "package_name": "com.example.farm_samarth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg475zci-r7RpnJCVQhSmGRbHiZKG_Sb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
