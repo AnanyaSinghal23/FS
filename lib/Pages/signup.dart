@@ -29,12 +29,17 @@ class _SignUpPageState extends State<SignUpPage> {
       if (userCredential.user != null) {
         // Save user details to Cloud Firestore
         await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
-          'email': emailController.text,
-          'firstName': firstNameController.text,
-          'lastName': lastNameController.text,
-          'middleName': middleNameController.text,
-          'mobileNumber': mobileNumberController.text,
+          'email id': emailController.text.trim(),
+      'first name': firstNameController.text.trim(),
+      'last name': lastNameController.text.trim(),
+      'middle name': middleNameController.text.trim(),
+      'mob': int.parse(mobileNumberController.text.trim()), 
+      'password': passwordController.text
         });
+
+        // await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).update({
+        //   'additionalField': 'additionalValue',
+        // });
 
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
