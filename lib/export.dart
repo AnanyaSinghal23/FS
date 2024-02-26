@@ -9,3 +9,5 @@ export 'model/weathermodel.dart';
 export 'service/weatherservice.dart';
 export 'Pages/bahikhata.dart';
 export 'Pages/profile.dart';
+export 'Pages/news.dart';
+export 'Pages/suchi.dart';

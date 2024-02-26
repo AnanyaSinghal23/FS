@@ -2,27 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Logbook',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: LogbookPage(
-        userEmail: 'user@example.com',
-      ),
-    );
-  }
-}
-
 class LogbookPage extends StatefulWidget {
   final String userEmail;
 
@@ -70,7 +49,7 @@ class _LogbookPageState extends State<LogbookPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Logbook'),
+        title: Text('बही खाता'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -80,7 +59,6 @@ class _LogbookPageState extends State<LogbookPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('बही खाता'),
                 DropdownButtonFormField<String>(
                   value: selectedCrop,
                   onChanged: (String? newValue) {

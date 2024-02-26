@@ -184,6 +184,14 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CropListPage(),
+              ),
+            );
+          }
           if (index == 1) {
             Navigator.push(
               context,
@@ -192,16 +200,24 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           }
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => News(),
+              ),
+            );
+          }
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProfilePage(userEmail: widget.userEmail),
-              ),
-            );
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfilePage(userEmail: widget.userEmail),
+            ),
+          );
         },
         child: Icon(Icons.person),
       ),
