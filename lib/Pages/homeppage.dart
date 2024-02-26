@@ -126,9 +126,11 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Hello! ${widget.userEmail}',
-          style: TextStyle(fontSize: 20),
+        automaticallyImplyLeading: false,
+        title: 
+            Text(
+              'नमस्ते! ${widget.userEmail}',
+              style: TextStyle(fontSize: 20),
         ),
       ),
       body: Column(
@@ -143,27 +145,25 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )
               : Container(),
+
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'थोक विक्रेता से जुड़ें',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           Expanded(
-            child: FutureBuilder(
-              future: fetchUserData(widget.userEmail),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error fetching data'));
-                } else {
-                  List<UserData> userDataList = snapshot.data as List<UserData>;
-                  return ListView.builder(
-                    itemCount: userDataList.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(userDataList[index].name),
-                        subtitle: Text('Number: ${userDataList[index].number}'),
-                      );
-                    },
-                  );
-                }
-              },
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              children: [
+                _buildPersonItem('सूरज सिंह', '87953XXXXX', Icons.person, 'assets/p1.png'),
+                _buildPersonItem('मोहन राजपूत', '98677XXXXX', Icons.person, 'assets/p2.png'),
+                _buildPersonItem('श्याम प्रसाद', '89988XXXXX', Icons.person, 'assets/p3.png'),
+              ],
             ),
           ),
         ],
@@ -224,23 +224,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<List<UserData>> fetchUserData(String? userEmail) async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .where('email', isEqualTo: userEmail)
-        .get();
-
-    List<UserData> userDataList = [];
-
-    for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-      Map<String, dynamic> data =
-          documentSnapshot.data() as Map<String, dynamic>;
-      String name = data['name'] ?? '';
-      String number = data['number'] ?? '';
-      userDataList.add(UserData(name: name, number: number));
-    }
-
-    return userDataList;
+  Widget _buildPersonItem(String name, String phoneNumber, IconData iconData, String loc) {
+    return ListTile(
+      leading: CircleAvatar(
+        child: Image.asset(loc),
+      ),
+      title: Text(name),
+      subtitle: Text('$phoneNumber'),
+    );
   }
 }
 
@@ -250,3 +241,28 @@ class UserData {
 
   UserData({required this.name, required this.number});
 }
+
+
+// Expanded(
+          //   child: FutureBuilder(
+          //     future: fetchUserData(widget.userEmail),
+          //     builder: (context, snapshot) {
+          //       if (snapshot.connectionState == ConnectionState.waiting) {
+          //         return Center(child: CircularProgressIndicator());
+          //       } else if (snapshot.hasError) {
+          //         return Center(child: Text('Error fetching data'));
+          //       } else {
+          //         List<UserData> userDataList = snapshot.data as List<UserData>;
+          //         return ListView.builder(
+          //           itemCount: userDataList.length,
+          //           itemBuilder: (context, index) {
+          //             return ListTile(
+          //               title: Text(userDataList[index].name),
+          //               subtitle: Text('Number: ${userDataList[index].number}'),
+          //             );
+          //           },
+          //         );
+          //       }
+          //     },
+          //   ),
+          // ),

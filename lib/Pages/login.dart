@@ -14,8 +14,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> login() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
@@ -35,134 +35,152 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Opacity(
-            opacity: 0.4,
-            child: Container(
+      body: SingleChildScrollView(
+          child: Stack(children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            SizedBox(
+              height: 14,
+            ),
+            Container(
+              width: 59,
+              height: 61,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/image_vortex.jpg'),
-                  fit: BoxFit.cover,
+                  image: AssetImage('assets/image 9.png'),
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'LOGIN',
-                    style: TextStyle(
-                      fontSize: 34,
-                      fontWeight: FontWeight.bold,
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'लॉगिन करें ',
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: emailController,
-                          style: TextStyle(
-                            color: Colors.blue[900],
-                            fontWeight: FontWeight.w800,
+                    SizedBox(height: 20),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            controller: emailController,
+                            style: TextStyle(
+                              color: Colors.blue[900],
+                              fontWeight: FontWeight.w800,
+                            ),
+                            decoration: InputDecoration(
+                              icon: Icon(Icons.mail),
+                              labelText: 'ईमेल *',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
                           ),
-                          decoration: InputDecoration(
-                            icon: Icon(Icons.mail),
-                            labelText: 'Email *',
+                          SizedBox(height: 10),
+                          TextFormField(
+                            controller: passwordController,
+                            style: TextStyle(
+                              color: Colors.blue[900],
+                              fontWeight: FontWeight.w800,
+                            ),
+                            decoration: InputDecoration(
+                              icon: Icon(Icons.password),
+                              labelText: 'पासवर्ड  *',
+                            ),
+                            obscureText: true,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          controller: passwordController,
-                          style: TextStyle(
-                            color: Colors.blue[900],
-                            fontWeight: FontWeight.w800,
+                          SizedBox(height: 30),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 64, 112, 88),
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                login();
+                              }
+                            },
+                            child: Text('लॉगिन करें'),
                           ),
-                          decoration: InputDecoration(
-                            icon: Icon(Icons.password),
-                            labelText: 'Password *',
+                          SizedBox(
+                            height: 20,
                           ),
-                          obscureText: true,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 30),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              login();
-                            }
-                          },
-                          child: Text('Log In'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ForgotPassword(),
-                              ),
-                            );
-                          },
-                          child: Text("Forgot Password?"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignUpPage(), // Replace with your SignUpPage
-                              ),
-                            );
-                          },
-                          child: Text("Sign Up"),
-                        ),
-                      ],
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.blue,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ForgotPassword(),
+                                ),
+                              );
+                            },
+                            child: Text("फॉरगॉट पासवर्ड करें "),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.blue,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignUpPage(),
+                                ),
+                              );
+                            },
+                            child: Text("साइन अप करें"),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+            //   ],
+            // ),
+            Positioned(
+              left: -24,
+              top: 530,
+              child: Container(
+                width: 417,
+                height: 265,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/image 18.png"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ])),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -278,7 +296,7 @@ class _LoginPageState extends State<LoginPage> {
 //                               return 'Please enter some text';
 //                             }
 //                             String pattern =
-//                                 r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+//                                 r'^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[!@#\$&*~]).{8,}$';
 //                             RegExp regex = RegExp(pattern);
 //                             if (!regex.hasMatch(value)) {
 //                               return "Weak Password\n\nMust contain:\n*Uppercase\n*Lowercase\n*Digit\n*Special Symbol !@#&*~\ ";
@@ -334,6 +352,6 @@ class _LoginPageState extends State<LoginPage> {
 //           ),
 //         ],
 //       ),
-//     );
-//   }
-// }
+//     );
+//   }
+// }

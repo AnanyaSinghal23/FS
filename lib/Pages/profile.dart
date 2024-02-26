@@ -70,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             CircleAvatar(
               radius: 50,
-              // You can add an image here if needed
+              child: Image.asset('assets/profile.png'),
             ),
             SizedBox(height: 20),
             Text('ईमेल: ${widget.userEmail}'),
@@ -78,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => _showLogoutDialog(),
-              child: Text('लॉगआउट'),
+              child: Text('लॉग आउट'),
             ),
           ],
         ),
