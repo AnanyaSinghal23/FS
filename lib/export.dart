@@ -7,3 +7,5 @@ export 'Pages/forgotpass.dart';
 export 'Pages/signup.dart';
 export 'model/weathermodel.dart';
 export 'service/weatherservice.dart';
+export 'Pages/bahikhata.dart';
+export 'Pages/profile.dart';

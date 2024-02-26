@@ -17,11 +17,11 @@ class WeatherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.9, 
+      width: MediaQuery.of(context).size.width * 0.9,
       padding: EdgeInsets.all(16.0),
       margin: EdgeInsets.symmetric(vertical: 10.0),
       decoration: BoxDecoration(
-        color: Colors.blue, 
+        color: Colors.blue,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Column(
@@ -89,9 +89,9 @@ class WeatherWidget extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  final String? userEmail;
+  final String userEmail;
 
-  HomePage({Key? key, this.userEmail}) : super(key: key);
+  HomePage({Key? key, required this.userEmail}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -152,15 +152,13 @@ class _HomePageState extends State<HomePage> {
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error fetching data'));
                 } else {
-                  List<UserData> userDataList =
-                      snapshot.data as List<UserData>;
+                  List<UserData> userDataList = snapshot.data as List<UserData>;
                   return ListView.builder(
                     itemCount: userDataList.length,
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Text(userDataList[index].name),
-                        subtitle: Text(
-                            'Number: ${userDataList[index].number}'),
+                        subtitle: Text('Number: ${userDataList[index].number}'),
                       );
                     },
                   );
@@ -185,9 +183,26 @@ class _HomePageState extends State<HomePage> {
             label: 'News',
           ),
         ],
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LogbookPage(userEmail: widget.userEmail),
+              ),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfilePage(userEmail: widget.userEmail),
+              ),
+            );
+        },
         child: Icon(Icons.person),
       ),
     );

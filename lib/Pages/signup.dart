@@ -39,9 +39,14 @@ class _SignUpPageState extends State<SignUpPage> {
       // Create a separate dataset collection for the user
       CollectionReference userDatasetCollection = FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).collection('dataset');
 
-      // await userDatasetCollection.add({
-      //   'key': 'value',
-      // });
+      await userDatasetCollection.add({
+        'crop': '',
+        'quantity': '',
+        'sell':'',
+        'price':'',
+        'total sale':'',
+        'receipt':''
+      });
 
       // Show success snackbar
       ScaffoldMessenger.of(context).showSnackBar(

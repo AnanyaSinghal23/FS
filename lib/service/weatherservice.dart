@@ -25,6 +25,7 @@ class WeatherService {
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
+      return 'India';
     }
 
     Position position= await Geolocator.getCurrentPosition(
