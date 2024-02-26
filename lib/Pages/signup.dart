@@ -19,38 +19,56 @@ class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
 
   Future<void> signUp() async {
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+
+    if (userCredential.user != null) {
+      // Save user details to Cloud Firestore
+      await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
+        'email id': emailController.text.trim(),
+        'first name': firstNameController.text.trim(),
+        'last name': lastNameController.text.trim(),
+        'middle name': middleNameController.text.trim(),
+        'mob': int.parse(mobileNumberController.text.trim()), 
+        'password': passwordController.text
+      });
+
+      // Create a separate dataset collection for the user
+      CollectionReference userDatasetCollection = FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).collection('dataset');
+
+      // await userDatasetCollection.add({
+      //   'key': 'value',
+      // });
+
+      // Show success snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Signup Successful!'),
+          duration: Duration(seconds: 2),
+        ),
       );
 
-      if (userCredential.user != null) {
-        // Save user details to Cloud Firestore
-        await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
-          'email id': emailController.text.trim(),
-      'first name': firstNameController.text.trim(),
-      'last name': lastNameController.text.trim(),
-      'middle name': middleNameController.text.trim(),
-      'mob': int.parse(mobileNumberController.text.trim()), 
-      'password': passwordController.text
-        });
-
-        // await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).update({
-        //   'additionalField': 'additionalValue',
-        // });
-
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
-        );
-      }
-    } catch (e) {
-      print('Error: $e');
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => HomePage(userEmail: emailController.text), 
+        ),
+      );
     }
+  } catch (e) {
+    // Show error snackbar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Error: $e'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+
+    print('Error: $e');
   }
+}
 
   @override
   Widget build(BuildContext context) {

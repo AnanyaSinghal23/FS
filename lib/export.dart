@@ -5,3 +5,5 @@ export 'model/usermodel.dart';
 export 'Pages/homeppage.dart';
 export 'Pages/forgotpass.dart';
 export 'Pages/signup.dart';
+export 'model/weathermodel.dart';
+export 'service/weatherservice.dart';
