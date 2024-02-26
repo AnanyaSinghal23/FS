@@ -12,24 +12,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // late String userName;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchUserData();
-  // }
-
-  // Future<void> fetchUserData() async {
-  //   final user = FirebaseAuth.instance.currentUser;
-  //   if (user != null) {
-  //     final userData = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-  //     setState(() {
-  //       userName = userData['name'] ?? '';
-  //     });
-  //   }
-  // }
-
   Future<void> _showLogoutDialog() async {
     return showDialog(
       context: context,
@@ -69,16 +51,22 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
-              radius: 50,
-              child: Image.asset('assets/profile.png'),
+              radius: 60,
+              backgroundImage: AssetImage('assets/profile.png'),
             ),
             SizedBox(height: 20),
-            Text('ईमेल: ${widget.userEmail}'),
-            Text('नाम: ${widget.userEmail.substring(0, widget.userEmail.indexOf('@'))}'),
+            Text(
+              'ईमेल: ${widget.userEmail}',
+              style: TextStyle(fontSize: 22), 
+            ),
+            Text(
+              'नाम: ${widget.userEmail.substring(0, widget.userEmail.indexOf('@'))}',
+              style: TextStyle(fontSize: 22),
+            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => _showLogoutDialog(),
-              child: Text('लॉग आउट'),
+              child: Text('लॉग आउट', style: TextStyle(fontSize: 19)), 
             ),
           ],
         ),
